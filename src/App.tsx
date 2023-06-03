@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import FirebaseController from './services/firebase/firebase'
 import { DocumentData, Unsubscribe, onSnapshot } from 'firebase/firestore'
+import UserSelection from './components/UserSelection'
 
 const firebaseController = FirebaseController()
 
 function App() {
+  const [username, setUsername] = useState<string>('Jack')
+  const [userIsValid, setUserIsValid] = useState<boolean>(true)
   const [assets, setAssets] = useState<undefined | DocumentData[]>(undefined)
   const [liabilities, setLiabilities] = useState<undefined | DocumentData[]>(undefined)
 
@@ -12,7 +15,17 @@ function App() {
     let unsubscribeAssets: Unsubscribe
     let unsubscribeLiabilities: Unsubscribe
     ;(async () => {
-      const assetsCollection = await firebaseController.getUserAssetCollection('Jack')
+      const userId = await firebaseController.getUserId(username)
+
+      if (!userId) {
+        setUserIsValid(false)
+        setAssets([])
+        setLiabilities([])
+        return
+      }
+      setUserIsValid(true)
+
+      const assetsCollection = await firebaseController.getUserAssetCollection(userId)
       unsubscribeAssets = onSnapshot(assetsCollection, (assetsSnapshot) => {
         setAssets(
           assetsSnapshot.docs.map((doc) => {
@@ -22,7 +35,7 @@ function App() {
       })
 
       const liabilitiesCollection = await firebaseController.getUserLiabilityCollection(
-        'Jack'
+        userId
       )
       unsubscribeLiabilities = onSnapshot(
         liabilitiesCollection,
@@ -44,11 +57,16 @@ function App() {
         unsubscribeLiabilities()
       }
     }
-  }, [])
+  }, [username])
 
   return (
     <>
       <h1>Net Worth Tracker</h1>
+      <UserSelection
+        username={username}
+        setUsername={setUsername}
+        usernameIsValid={userIsValid}
+      />
       <h2>Assets</h2>
       <ul>
         {assets
