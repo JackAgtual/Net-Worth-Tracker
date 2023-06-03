@@ -26,7 +26,13 @@ export default function FirebaseController() {
     return collection(db, `users/${userId}/assets`)
   }
 
+  const getUserLiabilityCollection = async (username: string) => {
+    const userId = await _getUserId(username)
+    return collection(db, `users/${userId}/liabilities`)
+  }
+
   return {
     getUserAssetCollection,
+    getUserLiabilityCollection,
   }
 }
