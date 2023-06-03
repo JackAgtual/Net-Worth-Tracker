@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import FirebaseController from './services/firebase/firebase'
-import { DocumentData, Unsubscribe, onSnapshot } from 'firebase/firestore'
+import { DocumentData, QuerySnapshot, Unsubscribe, onSnapshot } from 'firebase/firestore'
 import UserSelection from './components/UserSelection'
 
 const firebaseController = FirebaseController()
@@ -10,6 +10,17 @@ function App() {
   const [userIsValid, setUserIsValid] = useState<boolean>(true)
   const [assets, setAssets] = useState<undefined | DocumentData[]>(undefined)
   const [liabilities, setLiabilities] = useState<undefined | DocumentData[]>(undefined)
+
+  const setStateFromCollection = (
+    collectionSnapshot: QuerySnapshot<DocumentData>,
+    setState: React.Dispatch<React.SetStateAction<DocumentData[] | undefined>>
+  ) => {
+    setState(
+      collectionSnapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id }
+      })
+    )
+  }
 
   useEffect(() => {
     let unsubscribeAssets: Unsubscribe
@@ -27,11 +38,7 @@ function App() {
 
       const assetsCollection = await firebaseController.getUserAssetCollection(userId)
       unsubscribeAssets = onSnapshot(assetsCollection, (assetsSnapshot) => {
-        setAssets(
-          assetsSnapshot.docs.map((doc) => {
-            return { ...doc.data(), id: doc.id }
-          })
-        )
+        setStateFromCollection(assetsSnapshot, setAssets)
       })
 
       const liabilitiesCollection = await firebaseController.getUserLiabilityCollection(
@@ -40,11 +47,7 @@ function App() {
       unsubscribeLiabilities = onSnapshot(
         liabilitiesCollection,
         (liabilitiesSnapshot) => {
-          setLiabilities(
-            liabilitiesSnapshot.docs.map((doc) => {
-              return { ...doc.data(), id: doc.id }
-            })
-          )
+          setStateFromCollection(liabilitiesSnapshot, setLiabilities)
         }
       )
     })()
