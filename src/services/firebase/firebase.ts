@@ -15,10 +15,14 @@ export default function FirebaseController() {
   const db = getFirestore(app)
   const usersRef = collection(db, 'users')
 
-  const getUserAssetCollection = async (username: string) => {
+  const _getUserId = async (username: string) => {
     const userQuery = query(usersRef, where('username', '==', username))
     const userSnapshot = await getDocs(userQuery)
-    const userId = userSnapshot.docs[0].id
+    return userSnapshot.docs[0].id
+  }
+
+  const getUserAssetCollection = async (username: string) => {
+    const userId = await _getUserId(username)
     return collection(db, `users/${userId}/assets`)
   }
 
