@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, getDoc, doc } from 'firebase/firestore'
+import { collection, getFirestore, getDocs, where, query } from 'firebase/firestore'
 
 export default function FirebaseController() {
   const firebaseConfig = {
@@ -13,14 +13,16 @@ export default function FirebaseController() {
 
   const app = initializeApp(firebaseConfig)
   const db = getFirestore(app)
+  const usersRef = collection(db, 'users')
 
-  const fetchTestData = async () => {
-    const docRef = doc(db, '/test/We9NP5rry1Rficsj1Jmo')
-    const snapshot = await getDoc(docRef)
-    return snapshot.data()
+  const getUserAssetCollection = async (username: string) => {
+    const userQuery = query(usersRef, where('username', '==', username))
+    const userSnapshot = await getDocs(userQuery)
+    const userId = userSnapshot.docs[0].id
+    return collection(db, `users/${userId}/assets`)
   }
 
   return {
-    fetchTestData,
+    getUserAssetCollection,
   }
 }
