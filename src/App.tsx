@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import FirebaseController from './services/firebase/firebase'
 import { DocumentData, QuerySnapshot, Unsubscribe, onSnapshot } from 'firebase/firestore'
 import UserSelection from './components/UserSelection'
+import AssetLiabilityForm from './components/AssetLiabilityForm'
 
 const firebaseController = FirebaseController()
 
@@ -70,6 +71,7 @@ function App() {
         setUsername={setUsername}
         usernameIsValid={userIsValid}
       />
+      <AssetLiabilityForm />
       <h2>Assets</h2>
       <ul>
         {assets
