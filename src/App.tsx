@@ -4,10 +4,10 @@ import { DocumentData, QuerySnapshot, Unsubscribe, onSnapshot } from 'firebase/f
 import UserSelection from './components/UserSelection'
 import AssetLiabilityForm from './components/AssetLiabilityForm'
 
-const firebaseController = FirebaseController()
-
 function App() {
+  const firebaseController = FirebaseController()
   const [username, setUsername] = useState<string>('Jack')
+  const [userId, setUserId] = useState<string>('8oOMP68ABVzWCfvGW7OM')
   const [userIsValid, setUserIsValid] = useState<boolean>(true)
   const [assets, setAssets] = useState<undefined | DocumentData[]>(undefined)
   const [liabilities, setLiabilities] = useState<undefined | DocumentData[]>(undefined)
@@ -27,23 +27,23 @@ function App() {
     let unsubscribeAssets: Unsubscribe
     let unsubscribeLiabilities: Unsubscribe
     ;(async () => {
-      const userId = await firebaseController.getUserId(username)
+      const tmpUserId = await firebaseController.getUserId(username)
 
-      if (!userId) {
+      if (!tmpUserId) {
         setUserIsValid(false)
+        setUserId('')
         setAssets([])
         setLiabilities([])
         return
       }
-      setUserIsValid(true)
 
-      const assetsCollection = await firebaseController.getUserAssetCollection(userId)
+      const assetsCollection = await firebaseController.getUserAssetCollection(tmpUserId)
       unsubscribeAssets = onSnapshot(assetsCollection, (assetsSnapshot) => {
         setStateFromCollection(assetsSnapshot, setAssets)
       })
 
       const liabilitiesCollection = await firebaseController.getUserLiabilityCollection(
-        userId
+        tmpUserId
       )
       unsubscribeLiabilities = onSnapshot(
         liabilitiesCollection,
@@ -51,6 +51,9 @@ function App() {
           setStateFromCollection(liabilitiesSnapshot, setLiabilities)
         }
       )
+
+      setUserIsValid(true)
+      setUserId(tmpUserId)
     })()
 
     return () => {
@@ -71,7 +74,7 @@ function App() {
         setUsername={setUsername}
         usernameIsValid={userIsValid}
       />
-      <AssetLiabilityForm />
+      <AssetLiabilityForm userId={userId} firebaseController={firebaseController} />
       <h2>Assets</h2>
       <ul>
         {assets

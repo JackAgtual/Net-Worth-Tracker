@@ -1,5 +1,14 @@
 import { initializeApp } from 'firebase/app'
-import { collection, getFirestore, getDocs, where, query } from 'firebase/firestore'
+import {
+  collection,
+  getFirestore,
+  getDocs,
+  where,
+  query,
+  addDoc,
+} from 'firebase/firestore'
+
+export type FirebaseControllerType = ReturnType<typeof FirebaseController>
 
 export default function FirebaseController() {
   const firebaseConfig = {
@@ -33,9 +42,29 @@ export default function FirebaseController() {
     return collection(db, `users/${userId}/liabilities`)
   }
 
+  const addDocumentToUserAssets = async (
+    userId: string,
+    document: { name: string; amount: number }
+  ) => {
+    // TODO: import document data type
+    const assetCollection = await getUserAssetCollection(userId)
+    addDoc(assetCollection, document)
+  }
+
+  const addDocumentToUserLiabilities = async (
+    userId: string,
+    document: { name: string; amount: number }
+  ) => {
+    // TODO: import document data type
+    const liabilitiesColection = await getUserLiabilityCollection(userId)
+    addDoc(liabilitiesColection, document)
+  }
+
   return {
     getUserId,
     getUserAssetCollection,
     getUserLiabilityCollection,
+    addDocumentToUserAssets,
+    addDocumentToUserLiabilities,
   }
 }
