@@ -7,15 +7,15 @@ import {
   TableRow,
   TextField,
 } from '@mui/material'
-import { useState } from 'react'
+import { Data, SetData } from '../types/data'
 
 type TableInputProps = {
   tableName: string
+  tableRows: Data
+  setTableRows: SetData
 }
 
-function TableInput({ tableName }: TableInputProps) {
-  const [tableRows, setTableRows] = useState<{ name: string; amount: number }[]>([])
-
+function TableInput({ tableName, tableRows, setTableRows }: TableInputProps) {
   const addTableRow = () => {
     setTableRows((prevRows) => [...prevRows, { name: '', amount: 0 }])
   }
