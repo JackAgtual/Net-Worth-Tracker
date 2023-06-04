@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material'
 import { useState } from 'react'
 
 type UserSelectionProps = {
@@ -15,11 +16,15 @@ function UserSelection({ username, setUsername, usernameIsValid }: UserSelection
   return (
     <>
       <form onSubmit={handleUsernameChange}>
-        <label>
-          Username:
-          <input type="text" onChange={(e) => setNewUsername(e.target.value)} />
-        </label>
-        <button type="submit">Set user</button>
+        <TextField
+          size="small"
+          label="Username"
+          type="text"
+          onChange={(e) => setNewUsername(e.target.value)}
+        />
+        <Button type="submit" variant="outlined">
+          Set user
+        </Button>
       </form>
       <p>Current user: {usernameIsValid ? username : `${username} (invalid)`}</p>
     </>
