@@ -4,6 +4,7 @@ import { Unsubscribe, onSnapshot } from 'firebase/firestore'
 import UserSelection from './components/UserSelection'
 import AssetLiabilityForm from './components/AssetLiabilityForm'
 import { Record, RecordData } from './types/data'
+import NetWorthTable from './components/NetWorthTable'
 
 function App() {
   const firebaseController = FirebaseController()
@@ -56,6 +57,7 @@ function App() {
         usernameIsValid={userIsValid}
       />
       <AssetLiabilityForm userId={userId} firebaseController={firebaseController} />
+      <NetWorthTable records={records} />
     </>
   )
 }
