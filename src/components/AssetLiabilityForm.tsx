@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import TableInput from './TableInput'
-import { Data } from '../types/data'
+import { DataArray } from '../types/data'
 import { FirebaseControllerType } from '../services/firebase/firebase'
 
 type AsssetLiabilityFormProps = {
@@ -10,8 +10,8 @@ type AsssetLiabilityFormProps = {
 }
 
 function AssetLiabilityForm({ userId, firebaseController }: AsssetLiabilityFormProps) {
-  const [assets, setAssets] = useState<Data>([])
-  const [liabilities, setLiabilities] = useState<Data>([])
+  const [assets, setAssets] = useState<DataArray>([])
+  const [liabilities, setLiabilities] = useState<DataArray>([])
 
   const handleAssetsAndLiabilitiesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

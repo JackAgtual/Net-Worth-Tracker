@@ -7,6 +7,7 @@ import {
   query,
   addDoc,
 } from 'firebase/firestore'
+import { Data } from '../../types/data'
 
 export type FirebaseControllerType = ReturnType<typeof FirebaseController>
 
@@ -42,20 +43,12 @@ export default function FirebaseController() {
     return collection(db, `users/${userId}/liabilities`)
   }
 
-  const addDocumentToUserAssets = async (
-    userId: string,
-    document: { name: string; amount: number }
-  ) => {
-    // TODO: import document data type
+  const addDocumentToUserAssets = async (userId: string, document: Data) => {
     const assetCollection = await getUserAssetCollection(userId)
     addDoc(assetCollection, document)
   }
 
-  const addDocumentToUserLiabilities = async (
-    userId: string,
-    document: { name: string; amount: number }
-  ) => {
-    // TODO: import document data type
+  const addDocumentToUserLiabilities = async (userId: string, document: Data) => {
     const liabilitiesColection = await getUserLiabilityCollection(userId)
     addDoc(liabilitiesColection, document)
   }
