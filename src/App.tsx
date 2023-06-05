@@ -57,7 +57,7 @@ function App() {
         usernameIsValid={userIsValid}
       />
       <AssetLiabilityForm userId={userId} firebaseController={firebaseController} />
-      <NetWorthTable records={records} />
+      {records.length > 0 && <NetWorthTable records={records} />}
     </>
   )
 }
