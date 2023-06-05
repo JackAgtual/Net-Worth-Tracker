@@ -75,30 +75,6 @@ function App() {
         usernameIsValid={userIsValid}
       />
       <AssetLiabilityForm userId={userId} firebaseController={firebaseController} />
-      <h2>Assets</h2>
-      <ul>
-        {assets
-          ? assets?.map((asset) => {
-              return (
-                <li key={asset.id}>
-                  {asset.name}: ${asset.amount}
-                </li>
-              )
-            })
-          : 'Loading...'}
-      </ul>
-      <h2>Liabilities</h2>
-      <ul>
-        {liabilities
-          ? liabilities?.map((liability) => {
-              return (
-                <li key={liability.id}>
-                  {liability.name}: ${liability.amount}
-                </li>
-              )
-            })
-          : 'Loading...'}
-      </ul>
     </>
   )
 }
