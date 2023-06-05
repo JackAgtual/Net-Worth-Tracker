@@ -7,7 +7,7 @@ import {
   TableRow,
   TextField,
 } from '@mui/material'
-import { DataArray, SetData } from '../types/data'
+import { DataArray, SetData } from '../../types/data'
 
 type TableInputProps = {
   tableName: string
