@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Button, TextField } from '@mui/material'
-import TableInput from './TableInput'
-import { DataArray } from '../types/data'
-import { FirebaseControllerType } from '../services/firebase/firebase'
+import TableInput from '../TableInput'
+import { DataArray } from '../../types/data'
+import { FirebaseControllerType } from '../../services/firebase/firebase'
 
 type AsssetLiabilityFormProps = {
   firebaseController: FirebaseControllerType
