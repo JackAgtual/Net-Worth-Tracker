@@ -7,15 +7,21 @@ import { FirebaseControllerType } from '../../services/firebase/firebase'
 type AsssetLiabilityFormProps = {
   firebaseController: FirebaseControllerType
   userId: string
+  setInputtingNewRecord: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function AssetLiabilityForm({ userId, firebaseController }: AsssetLiabilityFormProps) {
+function AssetLiabilityForm({
+  userId,
+  firebaseController,
+  setInputtingNewRecord,
+}: AsssetLiabilityFormProps) {
   const [assets, setAssets] = useState<DataArray>([])
   const [liabilities, setLiabilities] = useState<DataArray>([])
   const [date, setDate] = useState(new Date())
 
   const handleAssetsAndLiabilitiesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setInputtingNewRecord(false)
     firebaseController.addRecordToUser(userId, date, assets, liabilities)
   }
 

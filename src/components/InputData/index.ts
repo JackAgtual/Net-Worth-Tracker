@@ -1,3 +1,2 @@
-import AssetLiabilityForm from './AssetLiabilityForm'
-
-export { AssetLiabilityForm }
+import InputData from './InputData'
+export default InputData

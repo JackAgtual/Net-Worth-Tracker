@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import FirebaseController from './services/firebase/firebase'
 import { Unsubscribe, onSnapshot } from 'firebase/firestore'
 import UserSelection from './components/UserSelection'
-import { AssetLiabilityForm } from './components/InputData/'
+import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
 
@@ -56,7 +56,7 @@ function App() {
         setUsername={setUsername}
         usernameIsValid={userIsValid}
       />
-      <AssetLiabilityForm userId={userId} firebaseController={firebaseController} />
+      <InputData userId={userId} firebaseController={firebaseController} />
       {records.length > 0 && <NetWorthTable records={records} />}
     </>
   )
