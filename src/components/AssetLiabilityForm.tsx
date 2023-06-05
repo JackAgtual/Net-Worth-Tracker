@@ -12,22 +12,31 @@ type AsssetLiabilityFormProps = {
 function AssetLiabilityForm({ userId, firebaseController }: AsssetLiabilityFormProps) {
   const [assets, setAssets] = useState<DataArray>([])
   const [liabilities, setLiabilities] = useState<DataArray>([])
+  const [date, setDate] = useState(new Date())
 
   const handleAssetsAndLiabilitiesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    assets.forEach((asset) => {
-      firebaseController.addDocumentToUserAssets(userId, asset)
-    })
-    liabilities.forEach((liability) => {
-      firebaseController.addDocumentToUserLiabilities(userId, liability)
-    })
+    firebaseController.addRecordToUser(userId, date, assets, liabilities)
+  }
+
+  const handleDateChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    e.preventDefault()
+    const [year, month, day] = e.target.value.split('-')
+    setDate(new Date(Number(year), Number(month) - 1, Number(day)))
   }
 
   return (
     <>
       <h2>Input Assets and Liabilities</h2>
       <form onSubmit={handleAssetsAndLiabilitiesSubmit}>
-        <TextField type="date" size="small"></TextField>
+        <TextField
+          required
+          type="date"
+          size="small"
+          onChange={handleDateChange}
+        ></TextField>
         <h3>Assets</h3>
         <TableInput tableName="Assets" tableRows={assets} setTableRows={setAssets} />
         <h3>Liabilities</h3>

@@ -7,7 +7,7 @@ import {
   query,
   addDoc,
 } from 'firebase/firestore'
-import { Data } from '../../types/data'
+import { DataArray } from '../../types/data'
 
 export type FirebaseControllerType = ReturnType<typeof FirebaseController>
 
@@ -35,29 +35,24 @@ export default function FirebaseController() {
     }
   }
 
-  const getUserAssetCollection = async (userId: string) => {
-    return collection(db, `users/${userId}/assets`)
+  const getUserRecordsCollectionRef = (userId: string) => {
+    return collection(db, `users/${userId}/records`)
   }
 
-  const getUserLiabilityCollection = async (userId: string) => {
-    return collection(db, `users/${userId}/liabilities`)
-  }
-
-  const addDocumentToUserAssets = async (userId: string, document: Data) => {
-    const assetCollection = await getUserAssetCollection(userId)
-    addDoc(assetCollection, document)
-  }
-
-  const addDocumentToUserLiabilities = async (userId: string, document: Data) => {
-    const liabilitiesColection = await getUserLiabilityCollection(userId)
-    addDoc(liabilitiesColection, document)
+  const addRecordToUser = async (
+    userId: string,
+    date: Date,
+    assets: DataArray,
+    liabilities: DataArray
+  ) => {
+    const recordsCollectionRef = getUserRecordsCollectionRef(userId)
+    const displayDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    addDoc(recordsCollectionRef, { date, displayDate, assets, liabilities })
   }
 
   return {
     getUserId,
-    getUserAssetCollection,
-    getUserLiabilityCollection,
-    addDocumentToUserAssets,
-    addDocumentToUserLiabilities,
+    getUserRecordsCollectionRef,
+    addRecordToUser,
   }
 }

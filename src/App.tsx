@@ -1,67 +1,48 @@
 import { useEffect, useState } from 'react'
 import FirebaseController from './services/firebase/firebase'
-import { DocumentData, QuerySnapshot, Unsubscribe, onSnapshot } from 'firebase/firestore'
+import { Unsubscribe, onSnapshot } from 'firebase/firestore'
 import UserSelection from './components/UserSelection'
 import AssetLiabilityForm from './components/AssetLiabilityForm'
+import { Record, RecordData } from './types/data'
 
 function App() {
   const firebaseController = FirebaseController()
   const [username, setUsername] = useState<string>('Jack')
   const [userId, setUserId] = useState<string>('8oOMP68ABVzWCfvGW7OM')
   const [userIsValid, setUserIsValid] = useState<boolean>(true)
-  const [assets, setAssets] = useState<undefined | DocumentData[]>(undefined)
-  const [liabilities, setLiabilities] = useState<undefined | DocumentData[]>(undefined)
-
-  const setStateFromCollection = (
-    collectionSnapshot: QuerySnapshot<DocumentData>,
-    setState: React.Dispatch<React.SetStateAction<DocumentData[] | undefined>>
-  ) => {
-    setState(
-      collectionSnapshot.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id }
-      })
-    )
-  }
+  const [records, setRecrods] = useState<Record[]>([])
 
   useEffect(() => {
-    let unsubscribeAssets: Unsubscribe
-    let unsubscribeLiabilities: Unsubscribe
+    let unsubscribeRecords: Unsubscribe
     ;(async () => {
       const tmpUserId = await firebaseController.getUserId(username)
 
       if (!tmpUserId) {
         setUserIsValid(false)
         setUserId('')
-        setAssets([])
-        setLiabilities([])
         return
       }
 
-      const assetsCollection = await firebaseController.getUserAssetCollection(tmpUserId)
-      unsubscribeAssets = onSnapshot(assetsCollection, (assetsSnapshot) => {
-        setStateFromCollection(assetsSnapshot, setAssets)
-      })
+      const recordsCollecitonRef =
+        firebaseController.getUserRecordsCollectionRef(tmpUserId)
+      unsubscribeRecords = onSnapshot(recordsCollecitonRef, (recordsSnapshot) => {
+        const tmpRecords: Record[] = []
 
-      const liabilitiesCollection = await firebaseController.getUserLiabilityCollection(
-        tmpUserId
-      )
-      unsubscribeLiabilities = onSnapshot(
-        liabilitiesCollection,
-        (liabilitiesSnapshot) => {
-          setStateFromCollection(liabilitiesSnapshot, setLiabilities)
-        }
-      )
+        recordsSnapshot.forEach((record) => {
+          const recordId = record.id
+          const recordData = record.data() as RecordData
+          tmpRecords.push({ id: recordId, ...recordData })
+        })
+        setRecrods(tmpRecords)
+      })
 
       setUserIsValid(true)
       setUserId(tmpUserId)
     })()
 
     return () => {
-      if (unsubscribeAssets) {
-        unsubscribeAssets()
-      }
-      if (unsubscribeLiabilities) {
-        unsubscribeLiabilities()
+      if (unsubscribeRecords) {
+        unsubscribeRecords()
       }
     }
   }, [username])
