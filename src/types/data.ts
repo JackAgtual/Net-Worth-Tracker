@@ -14,6 +14,7 @@ export type RecordData = {
   liabilities: Data[]
   displayDate: string
   date: Timestamp
+  netWorth: number
 }
 
 export type Record = RecordData & { id: string }

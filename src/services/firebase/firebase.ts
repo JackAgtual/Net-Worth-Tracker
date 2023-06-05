@@ -39,6 +39,17 @@ export default function FirebaseController() {
     return collection(db, `users/${userId}/records`)
   }
 
+  const _calculateNetWorth = (assets: DataArray, liabilities: DataArray): number => {
+    let netWorth = 0
+    assets.forEach((asset) => {
+      netWorth += asset.amount
+    })
+    liabilities.forEach((liability) => {
+      netWorth -= liability.amount
+    })
+    return netWorth
+  }
+
   const addRecordToUser = async (
     userId: string,
     date: Date,
@@ -47,7 +58,8 @@ export default function FirebaseController() {
   ) => {
     const recordsCollectionRef = getUserRecordsCollectionRef(userId)
     const displayDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-    addDoc(recordsCollectionRef, { date, displayDate, assets, liabilities })
+    const netWorth = _calculateNetWorth(assets, liabilities)
+    addDoc(recordsCollectionRef, { date, netWorth, displayDate, assets, liabilities })
   }
 
   return {
