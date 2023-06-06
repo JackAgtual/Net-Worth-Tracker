@@ -2,15 +2,15 @@ import { Button, TextField } from '@mui/material'
 import { useState } from 'react'
 
 type UserSelectionProps = {
-  username: string
   setUsername: React.Dispatch<React.SetStateAction<string>>
-  usernameIsValid: boolean
+  setSignInModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
-function UserSelection({ username, setUsername, usernameIsValid }: UserSelectionProps) {
+function UserSelection({ setUsername, setSignInModalOpen }: UserSelectionProps) {
   const [newUsername, setNewUsername] = useState('')
 
   const handleUsernameChange = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setSignInModalOpen(false)
     setUsername(newUsername)
   }
   return (
@@ -26,7 +26,6 @@ function UserSelection({ username, setUsername, usernameIsValid }: UserSelection
           Set user
         </Button>
       </form>
-      <p>Current user: {usernameIsValid ? username : `${username} (invalid)`}</p>
     </>
   )
 }

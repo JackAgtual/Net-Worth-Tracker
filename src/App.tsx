@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react'
 import FirebaseController from './services/firebase/firebase'
 import { Unsubscribe, onSnapshot } from 'firebase/firestore'
-import UserSelection from './components/UserSelection'
 import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
-import { Container } from '@mui/material'
+import { Container, Typography } from '@mui/material'
 import Header from './components/Header'
 
 function App() {
   const firebaseController = FirebaseController()
-  const [username, setUsername] = useState<string>('Jack')
-  const [userId, setUserId] = useState<string>('8oOMP68ABVzWCfvGW7OM')
-  const [userIsValid, setUserIsValid] = useState<boolean>(true)
+  const [username, setUsername] = useState<string>('')
+  const [userId, setUserId] = useState<string>('')
+  const [userIsValid, setUserIsValid] = useState<boolean>(false)
   const [records, setRecrods] = useState<Record[]>([])
+
+  const resetUserData = () => {
+    setUsername('')
+    setUserId('')
+    setUserIsValid(false)
+    setRecrods([])
+  }
 
   useEffect(() => {
     let unsubscribeRecords: Unsubscribe
@@ -21,8 +27,7 @@ function App() {
       const tmpUserId = await firebaseController.getUserId(username)
 
       if (!tmpUserId) {
-        setUserIsValid(false)
-        setUserId('')
+        resetUserData()
         return
       }
 
@@ -52,13 +57,17 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header
+        userIsSignedIn={userIsValid}
+        setUsername={setUsername}
+        resetUserData={resetUserData}
+      />
       <Container maxWidth="lg">
-        <UserSelection
-          username={username}
-          setUsername={setUsername}
-          usernameIsValid={userIsValid}
-        />
+        {userIsValid && (
+          <Typography variant="h6" component="h3">
+            Welcome, {username}
+          </Typography>
+        )}
         <InputData userId={userId} firebaseController={firebaseController} />
         {records.length > 0 && <NetWorthTable records={records} />}
       </Container>
