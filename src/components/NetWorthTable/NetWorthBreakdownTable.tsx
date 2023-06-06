@@ -23,13 +23,13 @@ function NetWorthBreakdownTable({
 
   return (
     <>
-      <Typography variant="h6" gutterBottom component="div">
+      <Typography variant="subtitle2" gutterBottom component="h3">
         {tableTitle}
       </Typography>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
+            <TableCell>Item</TableCell>
             <TableCell align="right">Amount</TableCell>
           </TableRow>
         </TableHead>

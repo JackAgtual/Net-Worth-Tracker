@@ -1,4 +1,11 @@
-import { Table, TableBody, TableHead, TableRow, TableCell } from '@mui/material'
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+  Typography,
+} from '@mui/material'
 import { Record } from '../../types/data'
 import NetWorthTableRow from './NetWorthTableRow'
 
@@ -9,7 +16,9 @@ type NetWorthTableProps = {
 function NetWorthTable({ records }: NetWorthTableProps) {
   return (
     <>
-      <h1>Net Worth</h1>
+      <Typography component="h1" variant="h3">
+        Net Worth
+      </Typography>
       <Table size="small">
         <TableHead>
           <TableRow>
