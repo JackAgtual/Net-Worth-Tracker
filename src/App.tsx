@@ -5,7 +5,8 @@ import UserSelection from './components/UserSelection'
 import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
-import { Container, Typography } from '@mui/material'
+import { Container } from '@mui/material'
+import Header from './components/Header'
 
 function App() {
   const firebaseController = FirebaseController()
@@ -51,7 +52,7 @@ function App() {
 
   return (
     <>
-      <h1>Net Worth Tracker</h1>
+      <Header />
       <Container maxWidth="lg">
         <UserSelection
           username={username}
