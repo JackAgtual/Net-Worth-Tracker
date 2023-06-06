@@ -5,6 +5,7 @@ import UserSelection from './components/UserSelection'
 import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
+import { Container, Typography } from '@mui/material'
 
 function App() {
   const firebaseController = FirebaseController()
@@ -51,13 +52,15 @@ function App() {
   return (
     <>
       <h1>Net Worth Tracker</h1>
-      <UserSelection
-        username={username}
-        setUsername={setUsername}
-        usernameIsValid={userIsValid}
-      />
-      <InputData userId={userId} firebaseController={firebaseController} />
-      {records.length > 0 && <NetWorthTable records={records} />}
+      <Container maxWidth="lg">
+        <UserSelection
+          username={username}
+          setUsername={setUsername}
+          usernameIsValid={userIsValid}
+        />
+        <InputData userId={userId} firebaseController={firebaseController} />
+        {records.length > 0 && <NetWorthTable records={records} />}
+      </Container>
     </>
   )
 }
