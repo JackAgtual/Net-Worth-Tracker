@@ -4,8 +4,7 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { Modal } from '@mui/material'
-import UserSelection from './UserSelection'
+import SignInModal from './SignInModal'
 
 type HeaderProps = {
   userIsSignedIn: boolean
@@ -19,18 +18,6 @@ export default function Header({
   resetUserData,
 }: HeaderProps) {
   const [signInModalOpen, setSignInModalOpen] = useState(false)
-
-  const modalStyle = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: '3px',
-  }
 
   const handleSignOut = () => {
     resetUserData()
@@ -70,14 +57,11 @@ export default function Header({
           </Box>
         </Toolbar>
       </AppBar>
-      <Modal open={signInModalOpen}>
-        <Box sx={modalStyle}>
-          <UserSelection
-            setUsername={setUsername}
-            setSignInModalOpen={setSignInModalOpen}
-          />
-        </Box>
-      </Modal>
+      <SignInModal
+        signInModalOpen={signInModalOpen}
+        setUsername={setUsername}
+        setSignInModalOpen={setSignInModalOpen}
+      />
     </Box>
   )
 }
