@@ -28,9 +28,11 @@ function NetWorthTable({ records }: NetWorthTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {records.map((record) => {
-            return <NetWorthTableRow key={record.id} record={record} />
-          })}
+          {records
+            .sort((a, b) => a.date.seconds - b.date.seconds)
+            .map((record) => {
+              return <NetWorthTableRow key={record.id} record={record} />
+            })}
         </TableBody>
       </Table>
     </>
