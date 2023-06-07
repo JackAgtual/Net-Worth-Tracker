@@ -90,7 +90,7 @@ function TableInput({ tableName, tableRows, setTableRows }: TableInputProps) {
           })}
         </TableBody>
       </Table>
-      <Button onClick={addTableRow}>Add</Button>
+      <Button onClick={addTableRow}>{`Add ${tableName}`}</Button>
     </>
   )
 }

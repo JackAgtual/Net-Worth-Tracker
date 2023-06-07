@@ -32,9 +32,6 @@ export default function Header({
             Net Worth Tracker
           </Typography>
           <Box>
-            <Button variant="outlined" color="inherit">
-              Record Net Worth
-            </Button>
             {userIsSignedIn ? (
               <Button
                 onClick={handleSignOut}

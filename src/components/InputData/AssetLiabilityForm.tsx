@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, TextField } from '@mui/material'
+import { Button, Paper, TextField, Typography, Grid } from '@mui/material'
 import TableInput from './TableInput'
 import { DataArray } from '../../types/data'
 import { FirebaseControllerType } from '../../services/firebase/firebase'
@@ -34,26 +34,44 @@ function AssetLiabilityForm({
   }
 
   return (
-    <>
-      <h2>Input Assets and Liabilities</h2>
+    <Paper elevation={4} sx={{ p: 3, my: 3 }}>
+      <Typography variant="h4" component="h2" sx={{ pb: 4 }}>
+        Input Assets and Liabilities
+      </Typography>
       <form onSubmit={handleAssetsAndLiabilitiesSubmit}>
-        <TextField
-          required
-          type="date"
-          size="small"
-          onChange={handleDateChange}
-        ></TextField>
-        <h3>Assets</h3>
-        <TableInput tableName="Assets" tableRows={assets} setTableRows={setAssets} />
-        <h3>Liabilities</h3>
-        <TableInput
-          tableName="Liabilities"
-          tableRows={liabilities}
-          setTableRows={setLiabilities}
-        />
-        <Button type="submit">Add Data</Button>
+        <Grid container columns={1} spacing={3}>
+          <Grid item xs={1}>
+            <TextField
+              required
+              type="date"
+              size="small"
+              onChange={handleDateChange}
+            ></TextField>
+          </Grid>
+          <Grid item xs={1}>
+            <Typography variant="h5" component="h3">
+              Assets
+            </Typography>
+            <TableInput tableName="Assets" tableRows={assets} setTableRows={setAssets} />
+          </Grid>
+          <Grid item xs={1}>
+            <Typography variant="h5" component="h3">
+              Liabilities
+            </Typography>
+            <TableInput
+              tableName="Liabilities"
+              tableRows={liabilities}
+              setTableRows={setLiabilities}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <Button type="submit" variant="contained">
+              Save record
+            </Button>
+          </Grid>
+        </Grid>
       </form>
-    </>
+    </Paper>
   )
 }
 
