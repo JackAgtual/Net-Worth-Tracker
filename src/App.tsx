@@ -68,7 +68,13 @@ function App() {
             Welcome, {username}
           </Typography>
         )}
-        <InputData userId={userId} firebaseController={firebaseController} />
+        {userIsValid ? (
+          <InputData userId={userId} firebaseController={firebaseController} />
+        ) : (
+          <Typography variant="h4" component="p" sx={{ textAlign: 'center' }}>
+            Log in to view your net worth
+          </Typography>
+        )}
         {records.length > 0 && <NetWorthTable records={records} />}
       </Container>
     </>
