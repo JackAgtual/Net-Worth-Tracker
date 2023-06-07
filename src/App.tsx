@@ -63,13 +63,13 @@ function App() {
         resetUserData={resetUserData}
       />
       <Container maxWidth="lg">
-        {userIsValid && (
-          <Typography variant="h6" component="h3">
-            Welcome, {username}
-          </Typography>
-        )}
         {userIsValid ? (
-          <InputData userId={userId} firebaseController={firebaseController} />
+          <>
+            <Typography variant="h6" component="h3">
+              Welcome, {username}
+            </Typography>
+            <InputData userId={userId} firebaseController={firebaseController} />
+          </>
         ) : (
           <Typography variant="h4" component="p" sx={{ textAlign: 'center' }}>
             Log in to view your net worth
