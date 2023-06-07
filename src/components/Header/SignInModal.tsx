@@ -10,7 +10,7 @@ const modalStyle = {
   width: 400,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  p: 4,
+  pb: 4,
   borderRadius: '3px',
 }
 
@@ -38,10 +38,12 @@ function SignInModal({
             <CloseIcon />
           </IconButton>
         </Box>
-        <UserSelection
-          setUsername={setUsername}
-          setSignInModalOpen={setSignInModalOpen}
-        />
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <UserSelection
+            setUsername={setUsername}
+            setSignInModalOpen={setSignInModalOpen}
+          />
+        </Box>
       </Box>
     </Modal>
   )
