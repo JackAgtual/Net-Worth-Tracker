@@ -1,5 +1,14 @@
 import { useState } from 'react'
-import { Button, Paper, TextField, Typography, Grid } from '@mui/material'
+import {
+  Box,
+  Button,
+  Paper,
+  TextField,
+  Typography,
+  Grid,
+  IconButton,
+} from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import TableInput from './TableInput'
 import { DataArray } from '../../types/data'
 import { FirebaseControllerType } from '../../services/firebase/firebase'
@@ -33,11 +42,30 @@ function AssetLiabilityForm({
     setDate(new Date(Number(year), Number(month) - 1, Number(day)))
   }
 
+  const handleCancelInput = () => {
+    setAssets([])
+    setLiabilities([])
+    setDate(new Date())
+    setInputtingNewRecord(false)
+  }
+
   return (
     <Paper elevation={4} sx={{ p: 3, my: 3 }}>
-      <Typography variant="h4" component="h2" sx={{ pb: 4 }}>
-        Input Assets and Liabilities
-      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          pb: 4,
+        }}
+      >
+        <Typography variant="h4" component="h2">
+          Input Assets and Liabilities
+        </Typography>
+        <IconButton onClick={handleCancelInput}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
       <form onSubmit={handleAssetsAndLiabilitiesSubmit}>
         <Grid container columns={1} spacing={3}>
           <Grid item xs={1}>
