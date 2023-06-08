@@ -77,7 +77,9 @@ function App() {
             Log in to view your net worth
           </Typography>
         )}
-        {records.length > 0 && <NetWorthTable records={records} />}
+        {records.length > 0 && (
+          <NetWorthTable records={records} setRecords={setRecrods} />
+        )}
       </Container>
     </>
   )
