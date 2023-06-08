@@ -14,6 +14,7 @@ function App() {
   const [userIsValid, setUserIsValid] = useState<boolean>(false)
   const [records, setRecrods] = useState<Record[]>([])
 
+  // Hooks: Get data, set data (use setter in AssetLiabilityForm)
   const resetUserData = () => {
     setUsername('')
     setUserId('')
@@ -23,7 +24,7 @@ function App() {
 
   useEffect(() => {
     let unsubscribeRecords: Unsubscribe
-    ;(async () => {
+    const getRecords = async () => {
       const tmpUserId = await firebaseController.getUserId(username)
 
       if (!tmpUserId) {
@@ -46,7 +47,8 @@ function App() {
 
       setUserIsValid(true)
       setUserId(tmpUserId)
-    })()
+    }
+    getRecords()
 
     return () => {
       if (unsubscribeRecords) {
