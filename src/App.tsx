@@ -14,6 +14,7 @@ function App() {
   const resetUserData = () => {
     setUsername('')
     setUserId('')
+    setUserIsValid(false)
     setRecrods([])
   }
 
