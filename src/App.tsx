@@ -1,9 +1,12 @@
 import Login from './components/Login'
 import Home from './Home'
+import NewOrExistingUser from './components/NewOrExistingUser'
+import CreateUser from './components/CreateUser'
 import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 import Header from './components/Header'
 import { Record } from './types/data'
+import LoginPaper from './components/LoginPaper'
 
 function App() {
   const [username, setUsername] = useState<string>('')
@@ -37,7 +40,27 @@ function App() {
         />
         <Route
           path="/"
-          element={<Login setUsername={setUsername} setUserIsValid={setUserIsValid} />}
+          element={
+            <LoginPaper>
+              <NewOrExistingUser />
+            </LoginPaper>
+          }
+        />
+        <Route
+          path="/userlogin"
+          element={
+            <LoginPaper>
+              <Login setUsername={setUsername} setUserIsValid={setUserIsValid} />
+            </LoginPaper>
+          }
+        />
+        <Route
+          path="/createuser"
+          element={
+            <LoginPaper>
+              <CreateUser />
+            </LoginPaper>
+          }
         />
       </Routes>
     </>

@@ -41,11 +41,16 @@ export default function FirebaseController() {
     return !userSnapshot.empty
   }
 
+  const addUser = (username: string) => {
+    addDoc(usersRef, { username })
+  }
+
   const getUserRecordsCollectionRef = (userId: string) => {
     return collection(db, `users/${userId}/records`)
   }
 
   const _calculateNetWorth = (assets: DataArray, liabilities: DataArray): number => {
+    // TODO: move this out of this file and into utils file
     let netWorth = 0
     assets.forEach((asset) => {
       netWorth += asset.amount
@@ -77,6 +82,7 @@ export default function FirebaseController() {
   return {
     getUserId,
     usernameIsValid,
+    addUser,
     getUserRecordsCollectionRef,
     addRecordToUser,
   }
