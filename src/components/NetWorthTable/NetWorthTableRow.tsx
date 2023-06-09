@@ -38,14 +38,19 @@ function NetWorthTableRow({ record }: NetWorthTableRowProps) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="h3">
+              <Typography
+                sx={{ textAlign: { xs: 'center', sm: 'left' } }}
+                variant="h6"
+                gutterBottom
+                component="h3"
+              >
                 Net Worth Breakdown
               </Typography>
               <Grid container spacing={6}>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <NetWorthBreakdownTable record={record} assetsOrLiabilities="assets" />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <NetWorthBreakdownTable
                     record={record}
                     assetsOrLiabilities="liabilities"

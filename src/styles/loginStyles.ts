@@ -13,7 +13,7 @@ export const newOrExistingUserStyles = {
 }
 
 export const formStyles = {
-  px: 10,
+  px: { xs: 3, sm: 10 },
   pb: 5,
   pt: 2,
 }

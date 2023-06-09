@@ -7,7 +7,11 @@ type InputNewRecordProps = {
 function InputNewRecord({ setInputtingNewRecord }: InputNewRecordProps) {
   return (
     <>
-      <Button onClick={() => setInputtingNewRecord(true)} variant="contained">
+      <Button
+        sx={{ my: 3 }}
+        onClick={() => setInputtingNewRecord(true)}
+        variant="contained"
+      >
         Record net worth
       </Button>
     </>

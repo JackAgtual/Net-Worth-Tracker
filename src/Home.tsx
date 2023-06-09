@@ -4,7 +4,7 @@ import { Unsubscribe, onSnapshot } from 'firebase/firestore'
 import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
-import { Container, Typography } from '@mui/material'
+import { Container, Typography, Box } from '@mui/material'
 
 type HomeProps = {
   username: string
@@ -62,10 +62,16 @@ function Home({
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h6" component="h3">
-        Welcome, {username}
-      </Typography>
-      <InputData userId={userId} firebaseController={firebaseController} />
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography
+          sx={{ textAlign: { xs: 'center', sm: 'left' } }}
+          variant="h6"
+          component="h3"
+        >
+          Welcome, {username}
+        </Typography>
+        <InputData userId={userId} firebaseController={firebaseController} />
+      </Box>
       {records.length > 0 && <NetWorthTable records={records} setRecords={setRecords} />}
     </Container>
   )

@@ -18,11 +18,21 @@ export default function Header({ userIsSignedIn, resetUserData }: HeaderProps) {
     resetUserData()
   }
 
+  const textJustifyContent = userIsSignedIn ? 'start' : { xs: 'center', sm: 'start' }
+
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 3 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h5" component="h1" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h5"
+            component="h1"
+            sx={{
+              display: 'flex',
+              flexGrow: 1,
+              justifyContent: textJustifyContent,
+            }}
+          >
             Net Worth Tracker
           </Typography>
           <Box>
