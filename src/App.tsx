@@ -58,7 +58,11 @@ function App() {
           path="/createuser"
           element={
             <LoginPaper>
-              <CreateUser />
+              <CreateUser
+                setUsername={setUsername}
+                setUserId={setUserId}
+                setUserIsValid={setUserIsValid}
+              />
             </LoginPaper>
           }
         />

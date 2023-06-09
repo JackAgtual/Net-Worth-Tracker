@@ -5,23 +5,31 @@ import { useNavigate } from 'react-router-dom'
 
 const firebaseController = FirebaseController()
 
-function CreateUser() {
+type CreateUserProps = {
+  setUsername: React.Dispatch<React.SetStateAction<string>>
+  setUserId: React.Dispatch<React.SetStateAction<string>>
+  setUserIsValid: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function CreateUser({ setUsername, setUserId, setUserIsValid }: CreateUserProps) {
   const navigate = useNavigate()
-  const [username, setUsername] = useState('')
+  const [newUsername, setNewUsername] = useState('')
   const [userAlreadyExists, setUserAlreadyExists] = useState(false)
 
   const createNewuser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const newUserId = await firebaseController.getUserId(username)
+    const existingUserId = await firebaseController.getUserId(newUsername)
 
-    if (newUserId) {
+    if (existingUserId) {
       setUserAlreadyExists(true)
       return
     }
-    // TODO: Set username, user id, user is valid
-    // FIXME: Error: uncaught (in promise) somethign went wrong
+
     setUserAlreadyExists(false)
-    firebaseController.addUser(username)
+    const newUserId = await firebaseController.addUser(newUsername)
+    setUsername(newUsername)
+    setUserId(newUserId)
+    setUserIsValid(true)
     navigate('/home')
   }
 
@@ -35,7 +43,7 @@ function CreateUser() {
           size="small"
           label="Username"
           type="text"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setNewUsername(e.target.value)}
           required
           error={userAlreadyExists}
           helperText={userAlreadyExists ? 'User already exists' : ''}

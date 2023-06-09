@@ -41,8 +41,9 @@ export default function FirebaseController() {
     return !userSnapshot.empty
   }
 
-  const addUser = (username: string) => {
-    addDoc(usersRef, { username })
+  const addUser = async (username: string) => {
+    const docData = await addDoc(usersRef, { username })
+    return docData.id
   }
 
   const getUserRecordsCollectionRef = (userId: string) => {
