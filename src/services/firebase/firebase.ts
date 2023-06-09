@@ -35,6 +35,12 @@ export default function FirebaseController() {
     }
   }
 
+  const usernameIsValid = async (username: string) => {
+    const userQuery = query(usersRef, where('username', '==', username))
+    const userSnapshot = await getDocs(userQuery)
+    return !userSnapshot.empty
+  }
+
   const getUserRecordsCollectionRef = (userId: string) => {
     return collection(db, `users/${userId}/records`)
   }
@@ -70,6 +76,7 @@ export default function FirebaseController() {
 
   return {
     getUserId,
+    usernameIsValid,
     getUserRecordsCollectionRef,
     addRecordToUser,
   }

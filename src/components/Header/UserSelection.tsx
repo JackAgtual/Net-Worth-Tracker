@@ -1,6 +1,9 @@
 import { Button, TextField, Box } from '@mui/material'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import FirebaseController from '../../services/firebase/firebase'
+
+const firebaseController = FirebaseController()
 
 type UserSelectionProps = {
   setUsername: React.Dispatch<React.SetStateAction<string>>
@@ -9,13 +12,22 @@ type UserSelectionProps = {
 
 function UserSelection({ setUsername, setUserIsValid }: UserSelectionProps) {
   const [newUsername, setNewUsername] = useState('')
+  const [newUserIsValid, setNewUserIsValid] = useState(true)
+
   const usernameField = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
 
-  const handleUsernameChange = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUsernameChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // TODO: validate username
+    const isValid = await firebaseController.usernameIsValid(newUsername)
+
+    if (!isValid) {
+      setNewUserIsValid(false)
+      return
+    }
+
+    setNewUserIsValid(true)
     setUserIsValid(true)
     setUsername(newUsername)
     navigate('/home')
@@ -31,6 +43,9 @@ function UserSelection({ setUsername, setUserIsValid }: UserSelectionProps) {
             label="Username"
             type="text"
             onChange={(e) => setNewUsername(e.target.value)}
+            required
+            error={!newUserIsValid}
+            helperText={!newUserIsValid ? 'Invalid username' : ''}
           />
           <Button type="submit" variant="outlined">
             Set user
