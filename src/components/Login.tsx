@@ -1,15 +1,15 @@
 import UserSelection from './Header/UserSelection'
-import { Paper, Box, IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import { Paper } from '@mui/material'
 
-const modalStyle = {
+const loginPaperStyle = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  borderRadius: '3px',
-  boxShadow: 24,
-  p: 10,
+  borderRadius: '10px',
+  boxShadow: 20,
+  px: 10,
+  py: 5,
 }
 
 type LoginProps = {
@@ -19,15 +19,8 @@ type LoginProps = {
 
 function Login({ setUsername, setUserIsValid }: LoginProps) {
   return (
-    <Paper sx={modalStyle}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <IconButton>
-          <CloseIcon />
-        </IconButton>
-      </Box>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <UserSelection setUsername={setUsername} setUserIsValid={setUserIsValid} />
-      </Box>
+    <Paper sx={loginPaperStyle}>
+      <UserSelection setUsername={setUsername} setUserIsValid={setUserIsValid} />
     </Paper>
   )
 }

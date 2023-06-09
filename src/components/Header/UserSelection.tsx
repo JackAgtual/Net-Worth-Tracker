@@ -1,4 +1,4 @@
-import { Button, TextField, Box } from '@mui/material'
+import { Button, TextField, Stack, Typography } from '@mui/material'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FirebaseController from '../../services/firebase/firebase'
@@ -35,10 +35,12 @@ function UserSelection({ setUsername, setUserIsValid }: UserSelectionProps) {
   return (
     <>
       <form onSubmit={handleUsernameChange}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Stack spacing={2}>
+          <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
+            Enter your username to track your net worth
+          </Typography>
           <TextField
             ref={usernameField}
-            sx={{ mr: 2 }}
             size="small"
             label="Username"
             type="text"
@@ -50,7 +52,7 @@ function UserSelection({ setUsername, setUserIsValid }: UserSelectionProps) {
           <Button type="submit" variant="outlined">
             Set user
           </Button>
-        </Box>
+        </Stack>
       </form>
     </>
   )
