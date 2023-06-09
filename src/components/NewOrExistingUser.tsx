@@ -1,5 +1,6 @@
-import { Button, Stack, Typography } from '@mui/material'
+import { Button, Stack, Typography, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { newOrExistingUserStyles } from '../styles/loginStyles'
 
 function NewOrExistingUser() {
   const navigate = useNavigate()
@@ -8,17 +9,19 @@ function NewOrExistingUser() {
   const routeToCreateuser = () => navigate('/createuser')
 
   return (
-    <Stack spacing={2}>
-      <Typography textAlign="center" variant="h5">
-        I am a
-      </Typography>
-      <Button size="large" variant="outlined" onClick={routeToUserSignIn}>
-        Exising user
-      </Button>
-      <Button size="large" variant="outlined" onClick={routeToCreateuser}>
-        New User
-      </Button>
-    </Stack>
+    <Box sx={newOrExistingUserStyles}>
+      <Stack spacing={2}>
+        <Typography textAlign="center" variant="h5">
+          I am a
+        </Typography>
+        <Button size="large" variant="outlined" onClick={routeToUserSignIn}>
+          Exising user
+        </Button>
+        <Button size="large" variant="outlined" onClick={routeToCreateuser}>
+          New User
+        </Button>
+      </Stack>
+    </Box>
   )
 }
 

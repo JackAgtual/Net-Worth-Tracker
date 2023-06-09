@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { Typography, TextField, Button, Stack } from '@mui/material'
+import { Typography, TextField, Button, Stack, Box } from '@mui/material'
 import FirebaseController from '../services/firebase/firebase'
 import { useNavigate } from 'react-router-dom'
+import { formStyles } from '../styles/loginStyles'
+import BackToNewOrExisting from './BackToNewOrExisting'
 
 const firebaseController = FirebaseController()
 
@@ -34,25 +36,30 @@ function CreateUser({ setUsername, setUserId, setUserIsValid }: CreateUserProps)
   }
 
   return (
-    <form onSubmit={createNewuser}>
-      <Stack spacing={2}>
-        <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
-          Enter a username to sign in with next time
-        </Typography>
-        <TextField
-          size="small"
-          label="Username"
-          type="text"
-          onChange={(e) => setNewUsername(e.target.value)}
-          required
-          error={userAlreadyExists}
-          helperText={userAlreadyExists ? 'User already exists' : ''}
-        />
-        <Button type="submit" variant="outlined">
-          Create account
-        </Button>
-      </Stack>
-    </form>
+    <>
+      <BackToNewOrExisting />
+      <Box sx={formStyles}>
+        <form onSubmit={createNewuser}>
+          <Stack spacing={2}>
+            <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
+              Enter a username to sign in with next time
+            </Typography>
+            <TextField
+              size="small"
+              label="Username"
+              type="text"
+              onChange={(e) => setNewUsername(e.target.value)}
+              required
+              error={userAlreadyExists}
+              helperText={userAlreadyExists ? 'User already exists' : ''}
+            />
+            <Button type="submit" variant="outlined">
+              Create account
+            </Button>
+          </Stack>
+        </form>
+      </Box>
+    </>
   )
 }
 
