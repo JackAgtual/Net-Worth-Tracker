@@ -24,7 +24,6 @@ function NetWorthTable({ records, setRecords }: NetWorthTableProps) {
   const [sortAscending, setSortAscending] = useState(true)
 
   useEffect(() => {
-    console.log({ sortByDateOrNetWorth, sortAscending, records })
     const ascendingMult = sortAscending ? 1 : -1
     if (sortByDateOrNetWorth === 'date') {
       setRecords((prevRecords) =>
