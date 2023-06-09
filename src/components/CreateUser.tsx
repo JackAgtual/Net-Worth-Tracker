@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Typography, TextField, Button, Stack } from '@mui/material'
 import FirebaseController from '../services/firebase/firebase'
+import { useNavigate } from 'react-router-dom'
 
 const firebaseController = FirebaseController()
 
 function CreateUser() {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [userAlreadyExists, setUserAlreadyExists] = useState(false)
 
@@ -16,8 +18,11 @@ function CreateUser() {
       setUserAlreadyExists(true)
       return
     }
+    // TODO: Set username, user id, user is valid
+    // FIXME: Error: uncaught (in promise) somethign went wrong
     setUserAlreadyExists(false)
     firebaseController.addUser(username)
+    navigate('/home')
   }
 
   return (
