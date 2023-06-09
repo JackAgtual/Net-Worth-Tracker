@@ -70,6 +70,16 @@ function Home({
         >
           Welcome, {username}
         </Typography>
+        {records.length == 0 && (
+          <Typography
+            variant="h6"
+            component="p"
+            sx={{ textAlign: { xs: 'center', sm: 'left' } }}
+          >
+            It looks like you don't have any existing records. Record your net worth to
+            get started .
+          </Typography>
+        )}
         <InputData userId={userId} firebaseController={firebaseController} />
       </Box>
       {records.length > 0 && <NetWorthTable records={records} setRecords={setRecords} />}
