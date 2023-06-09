@@ -50,12 +50,18 @@ export default function FirebaseController() {
     return netWorth
   }
 
-  const addRecordToUser = async (
-    userId: string,
-    date: Date,
-    assets: DataArray,
+  type RecordPayload = {
+    userId: string
+    date: Date
+    assets: DataArray
     liabilities: DataArray
-  ) => {
+  }
+  const addRecordToUser = async ({
+    userId,
+    date,
+    assets,
+    liabilities,
+  }: RecordPayload) => {
     const recordsCollectionRef = getUserRecordsCollectionRef(userId)
     const displayDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
     const netWorth = _calculateNetWorth(assets, liabilities)

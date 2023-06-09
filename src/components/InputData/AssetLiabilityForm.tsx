@@ -31,7 +31,7 @@ function AssetLiabilityForm({
   const handleAssetsAndLiabilitiesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setInputtingNewRecord(false)
-    firebaseController.addRecordToUser(userId, date, assets, liabilities)
+    firebaseController.addRecordToUser({ userId, date, assets, liabilities })
   }
 
   const handleDateChange = (
