@@ -1,26 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import FirebaseController from './services/firebase/firebase'
 import { Unsubscribe, onSnapshot } from 'firebase/firestore'
 import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
 import { Container, Typography } from '@mui/material'
-import Header from './components/Header'
 
-function Home() {
+type HomeProps = {
+  username: string
+  userId: string
+  setUserId: React.Dispatch<React.SetStateAction<string>>
+  records: Record[]
+  setRecords: React.Dispatch<React.SetStateAction<Record[]>>
+  resetUserData: () => void
+}
+
+function Home({
+  username,
+  userId,
+  setUserId,
+  records,
+  setRecords,
+  resetUserData,
+}: HomeProps) {
   const firebaseController = FirebaseController()
-  const [username, setUsername] = useState<string>('')
-  const [userId, setUserId] = useState<string>('')
-  const [userIsValid, setUserIsValid] = useState<boolean>(false)
-  const [records, setRecrods] = useState<Record[]>([])
-
   // Hooks: Get data, set data (use setter in AssetLiabilityForm)
-  const resetUserData = () => {
-    setUsername('')
-    setUserId('')
-    setUserIsValid(false)
-    setRecrods([])
-  }
 
   useEffect(() => {
     let unsubscribeRecords: Unsubscribe
@@ -42,10 +46,9 @@ function Home() {
           const recordData = record.data() as RecordData
           tmpRecords.push({ id: recordId, ...recordData })
         })
-        setRecrods(tmpRecords)
+        setRecords(tmpRecords)
       })
 
-      setUserIsValid(true)
       setUserId(tmpUserId)
     }
     getRecords()
@@ -58,30 +61,13 @@ function Home() {
   }, [username])
 
   return (
-    <>
-      <Header
-        userIsSignedIn={userIsValid}
-        setUsername={setUsername}
-        resetUserData={resetUserData}
-      />
-      <Container maxWidth="lg">
-        {userIsValid ? (
-          <>
-            <Typography variant="h6" component="h3">
-              Welcome, {username}
-            </Typography>
-            <InputData userId={userId} firebaseController={firebaseController} />
-          </>
-        ) : (
-          <Typography variant="h4" component="p" sx={{ textAlign: 'center' }}>
-            Log in to view your net worth
-          </Typography>
-        )}
-        {records.length > 0 && (
-          <NetWorthTable records={records} setRecords={setRecrods} />
-        )}
-      </Container>
-    </>
+    <Container maxWidth="lg">
+      <Typography variant="h6" component="h3">
+        Welcome, {username}
+      </Typography>
+      <InputData userId={userId} firebaseController={firebaseController} />
+      {records.length > 0 && <NetWorthTable records={records} setRecords={setRecords} />}
+    </Container>
   )
 }
 

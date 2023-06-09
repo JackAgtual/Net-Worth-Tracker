@@ -1,27 +1,21 @@
-import { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import SignInModal from './SignInModal'
+import { useNavigate } from 'react-router-dom'
 
 type HeaderProps = {
   userIsSignedIn: boolean
-  setUsername: React.Dispatch<React.SetStateAction<string>>
   resetUserData: () => void
 }
 
-export default function Header({
-  userIsSignedIn,
-  setUsername,
-  resetUserData,
-}: HeaderProps) {
-  const [signInModalOpen, setSignInModalOpen] = useState(false)
+export default function Header({ userIsSignedIn, resetUserData }: HeaderProps) {
+  const navigate = useNavigate()
 
   const handleSignOut = () => {
+    navigate('/')
     resetUserData()
-    setSignInModalOpen(false)
   }
 
   return (
@@ -32,7 +26,7 @@ export default function Header({
             Net Worth Tracker
           </Typography>
           <Box>
-            {userIsSignedIn ? (
+            {userIsSignedIn && (
               <Button
                 onClick={handleSignOut}
                 style={{ marginLeft: '20px' }}
@@ -41,24 +35,10 @@ export default function Header({
               >
                 Sign Out
               </Button>
-            ) : (
-              <Button
-                onClick={() => setSignInModalOpen(true)}
-                style={{ marginLeft: '20px' }}
-                variant="outlined"
-                color="inherit"
-              >
-                Login
-              </Button>
             )}
           </Box>
         </Toolbar>
       </AppBar>
-      <SignInModal
-        signInModalOpen={signInModalOpen}
-        setUsername={setUsername}
-        setSignInModalOpen={setSignInModalOpen}
-      />
     </Box>
   )
 }
