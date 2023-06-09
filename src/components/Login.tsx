@@ -1,5 +1,5 @@
 import { Button, TextField, Stack, Typography, Box } from '@mui/material'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FirebaseController from '../services/firebase/firebase'
 import { formStyles } from '../styles/loginStyles'
@@ -16,7 +16,6 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
   const [newUsername, setNewUsername] = useState('')
   const [newUserIsValid, setNewUserIsValid] = useState(true)
 
-  const usernameField = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
 
   const handleUsernameChange = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +44,6 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
               Enter your username to track your net worth
             </Typography>
             <TextField
-              ref={usernameField}
               size="small"
               label="Username"
               type="text"
