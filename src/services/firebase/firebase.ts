@@ -8,6 +8,7 @@ import {
   addDoc,
 } from 'firebase/firestore'
 import { DataArray } from '../../types/data'
+import { calculateNetWorth } from '../../utils/finance'
 
 export type FirebaseControllerType = ReturnType<typeof FirebaseController>
 
@@ -50,18 +51,6 @@ export default function FirebaseController() {
     return collection(db, `users/${userId}/records`)
   }
 
-  const _calculateNetWorth = (assets: DataArray, liabilities: DataArray): number => {
-    // TODO: move this out of this file and into utils file
-    let netWorth = 0
-    assets.forEach((asset) => {
-      netWorth += asset.amount
-    })
-    liabilities.forEach((liability) => {
-      netWorth -= liability.amount
-    })
-    return netWorth
-  }
-
   type RecordPayload = {
     userId: string
     date: Date
@@ -76,7 +65,7 @@ export default function FirebaseController() {
   }: RecordPayload) => {
     const recordsCollectionRef = getUserRecordsCollectionRef(userId)
     const displayDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-    const netWorth = _calculateNetWorth(assets, liabilities)
+    const netWorth = calculateNetWorth(assets, liabilities)
     addDoc(recordsCollectionRef, { date, netWorth, displayDate, assets, liabilities })
   }
 
