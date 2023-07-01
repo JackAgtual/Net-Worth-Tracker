@@ -7,7 +7,7 @@ import {
   query,
   addDoc,
 } from 'firebase/firestore'
-import { DataArray } from '../../types/data'
+import { Data } from '../../types/data'
 import { calculateNetWorth } from '../../utils/finance'
 
 export type FirebaseControllerType = ReturnType<typeof FirebaseController>
@@ -54,8 +54,8 @@ export default function FirebaseController() {
   type RecordPayload = {
     userId: string
     date: Date
-    assets: DataArray
-    liabilities: DataArray
+    assets: Data[]
+    liabilities: Data[]
   }
   const addRecordToUser = async ({
     userId,

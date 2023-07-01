@@ -1,6 +1,6 @@
-import { DataArray } from '../types/data'
+import { Data } from '../types/data'
 
-export const calculateNetWorth = (assets: DataArray, liabilities: DataArray): number => {
+export const calculateNetWorth = (assets: Data[], liabilities: Data[]): number => {
   let netWorth = 0
   assets.forEach((asset) => {
     netWorth += asset.amount
