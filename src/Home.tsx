@@ -5,6 +5,7 @@ import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
 import { Container, Typography, Box } from '@mui/material'
+import Plot from './Plot'
 
 type HomeProps = {
   username: string
@@ -81,6 +82,7 @@ function Home({
           </Typography>
         )}
         <InputData userId={userId} firebaseController={firebaseController} />
+        <Plot records={records} />
       </Box>
       {records.length > 0 && <NetWorthTable records={records} setRecords={setRecords} />}
     </Container>
