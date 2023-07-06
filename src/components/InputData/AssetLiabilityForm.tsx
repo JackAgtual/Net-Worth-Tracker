@@ -77,15 +77,9 @@ function AssetLiabilityForm({
             ></TextField>
           </Grid>
           <Grid item xs={1}>
-            <Typography variant="h5" component="h3">
-              Assets
-            </Typography>
             <TableInput tableName="Assets" tableRows={assets} setTableRows={setAssets} />
           </Grid>
           <Grid item xs={1}>
-            <Typography variant="h5" component="h3">
-              Liabilities
-            </Typography>
             <TableInput
               tableName="Liabilities"
               tableRows={liabilities}

@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from '@mui/material'
 import { DataArray, SetData } from '../../types/data'
 
@@ -52,44 +53,49 @@ function TableInput({ tableName, tableRows, setTableRows }: TableInputProps) {
 
   return (
     <>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>{tableName}</TableCell>
-            <TableCell>Value</TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {tableRows.map((row, idx) => {
-            return (
-              <TableRow key={idx}>
-                <TableCell>
-                  <TextField
-                    variant="standard"
-                    size="small"
-                    type="text"
-                    value={row.name}
-                    onChange={(e) => handleNameChange(e, idx)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    variant="standard"
-                    size="small"
-                    type="number"
-                    value={row.amount}
-                    onChange={(e) => handleAmountChange(e, idx)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Button onClick={() => removeTableRow(idx)}>Delete</Button>
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
+      <Typography variant="h5" component="h3">
+        {tableName}
+      </Typography>
+      {tableRows.length > 0 && (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>{tableName}</TableCell>
+              <TableCell>Value</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tableRows.map((row, idx) => {
+              return (
+                <TableRow key={idx}>
+                  <TableCell>
+                    <TextField
+                      variant="standard"
+                      size="small"
+                      type="text"
+                      value={row.name}
+                      onChange={(e) => handleNameChange(e, idx)}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      variant="standard"
+                      size="small"
+                      type="number"
+                      value={row.amount}
+                      onChange={(e) => handleAmountChange(e, idx)}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={() => removeTableRow(idx)}>Delete</Button>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      )}
       <Button onClick={addTableRow}>{`Add ${tableName}`}</Button>
     </>
   )
