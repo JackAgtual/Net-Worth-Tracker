@@ -5,9 +5,7 @@ export type Data = {
   amount: number
 }
 
-export type DataArray = Data[]
-
-export type SetData = React.Dispatch<React.SetStateAction<DataArray>>
+export type SetData = React.Dispatch<React.SetStateAction<Data[]>>
 
 export type RecordData = {
   assets: Data[]

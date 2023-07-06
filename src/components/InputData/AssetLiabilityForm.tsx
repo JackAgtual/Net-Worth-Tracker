@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import TableInput from './TableInput'
-import { DataArray } from '../../types/data'
+import { Data } from '../../types/data'
 import { FirebaseControllerType } from '../../services/firebase/firebase'
 
 type AsssetLiabilityFormProps = {
@@ -24,8 +24,8 @@ function AssetLiabilityForm({
   firebaseController,
   setInputtingNewRecord,
 }: AsssetLiabilityFormProps) {
-  const [assets, setAssets] = useState<DataArray>([])
-  const [liabilities, setLiabilities] = useState<DataArray>([])
+  const [assets, setAssets] = useState<Data[]>([])
+  const [liabilities, setLiabilities] = useState<Data[]>([])
   const [date, setDate] = useState(new Date())
 
   const handleAssetsAndLiabilitiesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
