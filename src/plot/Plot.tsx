@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import { Record } from './types/data'
+import { Record } from '../types/data'
 import 'chartjs-adapter-date-fns'
 import {
   Chart as ChartJS,
@@ -72,6 +72,7 @@ function Plot({ records }: PlotProps) {
       <Container
         sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}
       >
+        // TODO: Make each date filter a component
         <Typography
           component="p"
           onClick={() => {
