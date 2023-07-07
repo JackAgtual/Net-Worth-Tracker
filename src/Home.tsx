@@ -78,13 +78,24 @@ function Home({
             sx={{ textAlign: { xs: 'center', sm: 'left' } }}
           >
             It looks like you don't have any existing records. Record your net worth to
-            get started .
+            get started.
           </Typography>
         )}
         <InputData userId={userId} firebaseController={firebaseController} />
-        <Plot records={records} />
       </Box>
-      {records.length > 0 && <NetWorthTable records={records} setRecords={setRecords} />}
+      {records.length > 0 && (
+        <>
+          <Typography
+            sx={{ textAlign: { xs: 'center', sm: 'start' } }}
+            component="h1"
+            variant="h3"
+          >
+            Your Net Worth Over Time
+          </Typography>
+          <Plot records={records} />
+          <NetWorthTable records={records} setRecords={setRecords} />
+        </>
+      )}
     </Container>
   )
 }

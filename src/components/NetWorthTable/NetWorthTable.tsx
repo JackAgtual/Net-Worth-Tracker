@@ -39,11 +39,11 @@ function NetWorthTable({ records, setRecords }: NetWorthTableProps) {
   return (
     <>
       <Typography
-        sx={{ textAlign: { xs: 'center', sm: 'start' } }}
+        variant="h5"
         component="h1"
-        variant="h3"
+        sx={{ textAlign: { xs: 'center', sm: 'left' } }}
       >
-        Your Net Worth
+        Table View
       </Typography>
       <Table size="small">
         <TableHead>
