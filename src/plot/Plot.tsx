@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import { Record } from '../types/data'
+import { DateFilters } from '../types/plot'
 import 'chartjs-adapter-date-fns'
 import {
   Chart as ChartJS,
@@ -14,6 +15,7 @@ import {
   TimeScale,
 } from 'chart.js'
 import { Container, Typography } from '@mui/material'
+import PlotDateFilter from './PlotDateFilter'
 
 ChartJS.register(
   CategoryScale,
@@ -29,8 +31,6 @@ ChartJS.register(
 type PlotProps = {
   records: Record[]
 }
-
-type DateFilters = 'All' | '10y' | '2y'
 
 function Plot({ records }: PlotProps) {
   const [dateFilter, setDateFilter] = useState<DateFilters>('All')
@@ -72,52 +72,27 @@ function Plot({ records }: PlotProps) {
       <Container
         sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}
       >
-        // TODO: Make each date filter a component
-        <Typography
-          component="p"
-          onClick={() => {
-            handleDateFilterChange('All')
-          }}
-          sx={{
-            mx: 2,
-            cursor: dateFilter === 'All' ? 'default' : 'pointer',
-            textDecoration: dateFilter === 'All' ? 'underline' : '',
-          }}
-        >
-          All
-        </Typography>
+        <PlotDateFilter
+          filterName="All"
+          dateFilter={dateFilter}
+          handleDateFilterChange={handleDateFilterChange}
+        />
         <Typography sx={{ cursor: 'default' }} component="p">
           |
         </Typography>
-        <Typography
-          component="p"
-          onClick={() => {
-            handleDateFilterChange('10y')
-          }}
-          sx={{
-            mx: 2,
-            cursor: dateFilter === '10y' ? 'default' : 'pointer',
-            textDecoration: dateFilter === '10y' ? 'underline' : '',
-          }}
-        >
-          10y
-        </Typography>
+        <PlotDateFilter
+          filterName="10y"
+          dateFilter={dateFilter}
+          handleDateFilterChange={handleDateFilterChange}
+        />
         <Typography sx={{ cursor: 'default' }} component="p">
           |
         </Typography>
-        <Typography
-          component="p"
-          onClick={() => {
-            handleDateFilterChange('2y')
-          }}
-          sx={{
-            mx: 2,
-            cursor: dateFilter === '2y' ? 'default' : 'pointer',
-            textDecoration: dateFilter === '2y' ? 'underline' : '',
-          }}
-        >
-          2y
-        </Typography>
+        <PlotDateFilter
+          filterName="2y"
+          dateFilter={dateFilter}
+          handleDateFilterChange={handleDateFilterChange}
+        />
       </Container>
       <Line
         data={{
