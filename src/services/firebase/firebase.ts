@@ -12,6 +12,13 @@ import { calculateNetWorth } from '../../utils/finance'
 
 export type FirebaseControllerType = ReturnType<typeof FirebaseController>
 
+type RecordPayload = {
+  userId: string
+  date: Date
+  assets: Data[]
+  liabilities: Data[]
+}
+
 export default function FirebaseController() {
   const firebaseConfig = {
     apiKey: 'AIzaSyCS6CsSSJOjkhWDaByKtx4nf0qxKXFawWs',
@@ -51,12 +58,6 @@ export default function FirebaseController() {
     return collection(db, `users/${userId}/records`)
   }
 
-  type RecordPayload = {
-    userId: string
-    date: Date
-    assets: Data[]
-    liabilities: Data[]
-  }
   const addRecordToUser = async ({
     userId,
     date,
