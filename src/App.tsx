@@ -1,5 +1,5 @@
 import Login from './components/Login'
-import Home from './Home'
+import Home from './components/Home'
 import NewOrExistingUser from './components/NewOrExistingUser'
 import CreateUser from './components/CreateUser'
 import { Routes, Route } from 'react-router-dom'

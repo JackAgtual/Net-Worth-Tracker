@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import FirebaseController from './services/firebase/firebase'
+import FirebaseController from '../services/firebase/firebase'
 import { Unsubscribe, onSnapshot } from 'firebase/firestore'
-import InputData from './components/InputData'
-import { Record, RecordData } from './types/data'
-import NetWorthTable from './components/NetWorthTable'
+import InputData from './InputData'
+import { Record, RecordData } from '../types/data'
+import NetWorthTable from './NetWorthTable'
 import { Container, Typography, Box } from '@mui/material'
-import Plot from './components/Plot'
+import Plot from './Plot'
 
 type HomeProps = {
   username: string
