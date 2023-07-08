@@ -6,7 +6,6 @@ import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 import Header from './components/Header'
 import { Record } from './types/data'
-import LoginPaper from './components/LoginPaper'
 
 function App() {
   const [username, setUsername] = useState<string>('')
@@ -38,32 +37,19 @@ function App() {
             />
           }
         />
-        <Route
-          path="/"
-          element={
-            <LoginPaper>
-              <NewOrExistingUser />
-            </LoginPaper>
-          }
-        />
+        <Route path="/" element={<NewOrExistingUser />} />
         <Route
           path="/userlogin"
-          element={
-            <LoginPaper>
-              <Login setUsername={setUsername} setUserIsValid={setUserIsValid} />
-            </LoginPaper>
-          }
+          element={<Login setUsername={setUsername} setUserIsValid={setUserIsValid} />}
         />
         <Route
           path="/createuser"
           element={
-            <LoginPaper>
-              <CreateUser
-                setUsername={setUsername}
-                setUserId={setUserId}
-                setUserIsValid={setUserIsValid}
-              />
-            </LoginPaper>
+            <CreateUser
+              setUsername={setUsername}
+              setUserId={setUserId}
+              setUserIsValid={setUserIsValid}
+            />
           }
         />
       </Routes>

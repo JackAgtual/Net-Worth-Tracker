@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import FirebaseController from '../services/firebase/firebase'
 import { formStyles } from '../styles/loginStyles'
 import BackToNewOrExisting from './BackToNewOrExisting'
+import LoginPaper from './LoginPaper'
 
 const firebaseController = FirebaseController()
 
@@ -35,7 +36,7 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
   }
 
   return (
-    <>
+    <LoginPaper>
       <BackToNewOrExisting />
       <Box sx={formStyles}>
         <form onSubmit={handleUsernameChange}>
@@ -58,7 +59,7 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
           </Stack>
         </form>
       </Box>
-    </>
+    </LoginPaper>
   )
 }
 
