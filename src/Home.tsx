@@ -5,7 +5,7 @@ import InputData from './components/InputData'
 import { Record, RecordData } from './types/data'
 import NetWorthTable from './components/NetWorthTable'
 import { Container, Typography, Box } from '@mui/material'
-import Plot from './Plot/Plot'
+import Plot from './components/Plot'
 
 type HomeProps = {
   username: string

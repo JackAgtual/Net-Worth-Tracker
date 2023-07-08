@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import { Record } from '../types/data'
-import { DateFilters } from '../types/plot'
+import { Record } from '../../types/data'
+import { DateFilters } from '../../types/plot'
 import 'chartjs-adapter-date-fns'
 import {
   Chart as ChartJS,

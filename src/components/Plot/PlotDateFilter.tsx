@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { DateFilters } from '../types/plot'
+import { DateFilters } from '../../types/plot'
 
 type PlotDateFilterProps = {
   dateFilter: DateFilters
