@@ -100,8 +100,8 @@ function Plot({ records }: PlotProps) {
             {
               label: 'Net worth data label',
               data,
-              borderColor: 'rgb(53, 162, 235)',
-              backgroundColor: 'rgba(53, 162, 235, 0.5)',
+              borderColor: 'rgb(0, 137, 123)',
+              backgroundColor: 'rgba(0, 137, 123, 0.5)',
             },
           ],
         }}
