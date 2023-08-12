@@ -1,5 +1,5 @@
-import { Button, TextField, Stack, Typography, Box } from '@mui/material'
-import { useState } from 'react'
+import { Button, TextField, Stack, Typography, Box, Autocomplete } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FirebaseController from '../services/firebase/firebase'
 import { formStyles } from '../styles/loginStyles'
@@ -15,21 +15,36 @@ type LoginProps = {
 
 function Login({ setUsername, setUserIsValid }: LoginProps) {
   const [newUsername, setNewUsername] = useState('')
-  const [newUserIsValid, setNewUserIsValid] = useState(true)
+  const [inputtedUserIsValid, setInputtedUserIsValid] = useState(false)
+  const [existingUsers, setExistingUsers] = useState<string[]>([])
 
   const navigate = useNavigate()
 
-  const handleUsernameChange = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  useEffect(() => {
+    const getAllUsers = async () => {
+      const allUsers = await firebaseController.getAllUsernames()
+      setExistingUsers(allUsers)
+    }
+    getAllUsers()
+  }, [])
 
-    const isValid = await firebaseController.usernameIsValid(newUsername)
-
-    if (!isValid) {
-      setNewUserIsValid(false)
+  const handleUsernameChange = (
+    e: React.SyntheticEvent<Element, Event>,
+    value: string | null,
+  ) => {
+    if (!value || !existingUsers.includes(value)) {
+      setInputtedUserIsValid(false)
       return
     }
+    setInputtedUserIsValid(true)
+    setNewUsername(value)
+  }
 
-    setNewUserIsValid(true)
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!inputtedUserIsValid) return
+
     setUserIsValid(true)
     setUsername(newUsername)
     navigate('/home')
@@ -39,19 +54,19 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
     <LoginPaper>
       <BackToNewOrExisting />
       <Box sx={formStyles}>
-        <form onSubmit={handleUsernameChange}>
+        <form onSubmit={handleFormSubmit}>
           <Stack spacing={2}>
             <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
               Enter your username to track your net worth
             </Typography>
-            <TextField
-              size="small"
-              label="Username"
-              type="text"
-              onChange={(e) => setNewUsername(e.target.value)}
-              required
-              error={!newUserIsValid}
-              helperText={!newUserIsValid ? 'Invalid username' : ''}
+            <Autocomplete
+              onChange={handleUsernameChange}
+              disablePortal
+              id="combo-box-demo"
+              options={existingUsers}
+              renderInput={(params) => (
+                <TextField required {...params} label="Username" />
+              )}
             />
             <Button type="submit" variant="outlined">
               Set user

@@ -1,5 +1,9 @@
 import { Timestamp } from 'firebase/firestore'
 
+export type UserRecord = {
+  username: string
+}
+
 export type Data = {
   name: string
   amount: number

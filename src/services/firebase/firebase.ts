@@ -43,6 +43,15 @@ export default function FirebaseController() {
     }
   }
 
+  const getAllUsernames = async () => {
+    const usersQuery = query(usersRef)
+    const usersSnapshot = await getDocs(usersQuery)
+    return usersSnapshot.docs.map((user) => {
+      const data = user.data()
+      return data.username
+    })
+  }
+
   const usernameIsValid = async (username: string) => {
     const userQuery = query(usersRef, where('username', '==', username))
     const userSnapshot = await getDocs(userQuery)
@@ -72,6 +81,7 @@ export default function FirebaseController() {
 
   return {
     getUserId,
+    getAllUsernames,
     usernameIsValid,
     addUser,
     getUserRecordsCollectionRef,
