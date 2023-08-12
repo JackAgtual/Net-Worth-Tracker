@@ -17,14 +17,21 @@ type RecordPayload = {
   liabilities: Data[]
 }
 
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY
+const authDomain = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN
+const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID
+const storageBucket = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET
+const messagingSenderId = import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID
+const appId = import.meta.env.VITE_FIREBASE_APP_ID
+
 export default class FirebaseController {
   static #firebaseConfig = {
-    apiKey: 'AIzaSyCS6CsSSJOjkhWDaByKtx4nf0qxKXFawWs',
-    authDomain: 'net-worth-tracker-bab98.firebaseapp.com',
-    projectId: 'net-worth-tracker-bab98',
-    storageBucket: 'net-worth-tracker-bab98.appspot.com',
-    messagingSenderId: '732921134415',
-    appId: '1:732921134415:web:d13a317475e6b5f560993a',
+    apiKey,
+    authDomain,
+    projectId,
+    storageBucket,
+    messagingSenderId,
+    appId,
   }
 
   static #app = initializeApp(this.#firebaseConfig)
