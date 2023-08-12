@@ -24,13 +24,10 @@ function Home({
   setRecords,
   resetUserData,
 }: HomeProps) {
-  const firebaseController = FirebaseController()
-  // Hooks: Get data, set data (use setter in AssetLiabilityForm)
-
   useEffect(() => {
     let unsubscribeRecords: Unsubscribe
     const getRecords = async () => {
-      const tmpUserId = await firebaseController.getUserId(username)
+      const tmpUserId = await FirebaseController.getUserId(username)
 
       if (!tmpUserId) {
         resetUserData()
@@ -38,7 +35,7 @@ function Home({
       }
 
       const recordsCollecitonRef =
-        firebaseController.getUserRecordsCollectionRef(tmpUserId)
+        FirebaseController.getUserRecordsCollectionRef(tmpUserId)
       unsubscribeRecords = onSnapshot(recordsCollecitonRef, (recordsSnapshot) => {
         const tmpRecords: Record[] = []
 
@@ -81,7 +78,7 @@ function Home({
             get started.
           </Typography>
         )}
-        <InputData userId={userId} firebaseController={firebaseController} />
+        <InputData userId={userId} />
       </Box>
       {records.length > 0 && (
         <>

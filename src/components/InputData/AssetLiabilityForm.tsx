@@ -11,19 +11,14 @@ import {
 import CloseIcon from '@mui/icons-material/Close'
 import TableInput from './TableInput'
 import { Data } from '../../types/data'
-import { FirebaseControllerType } from '../../services/firebase/firebase'
+import FirebaseController from '../../services/firebase/firebase'
 
 type AsssetLiabilityFormProps = {
-  firebaseController: FirebaseControllerType
   userId: string
   setInputtingNewRecord: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function AssetLiabilityForm({
-  userId,
-  firebaseController,
-  setInputtingNewRecord,
-}: AsssetLiabilityFormProps) {
+function AssetLiabilityForm({ userId, setInputtingNewRecord }: AsssetLiabilityFormProps) {
   const [assets, setAssets] = useState<Data[]>([])
   const [liabilities, setLiabilities] = useState<Data[]>([])
   const [date, setDate] = useState(new Date())
@@ -31,11 +26,11 @@ function AssetLiabilityForm({
   const handleAssetsAndLiabilitiesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setInputtingNewRecord(false)
-    firebaseController.addRecordToUser({ userId, date, assets, liabilities })
+    FirebaseController.addRecordToUser({ userId, date, assets, liabilities })
   }
 
   const handleDateChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     e.preventDefault()
     const [year, month, day] = e.target.value.split('-')

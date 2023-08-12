@@ -6,8 +6,6 @@ import { formStyles } from '../styles/loginStyles'
 import BackToNewOrExisting from './BackToNewOrExisting'
 import LoginPaper from './LoginPaper'
 
-const firebaseController = FirebaseController()
-
 type LoginProps = {
   setUsername: React.Dispatch<React.SetStateAction<string>>
   setUserIsValid: React.Dispatch<React.SetStateAction<boolean>>
@@ -22,7 +20,7 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      const allUsers = await firebaseController.getAllUsernames()
+      const allUsers = await FirebaseController.getAllUsernames()
       setExistingUsers(allUsers)
     }
     getAllUsers()

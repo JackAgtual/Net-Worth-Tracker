@@ -10,8 +10,6 @@ import {
 import { Data } from '../../types/data'
 import { calculateNetWorth } from '../../utils/finance'
 
-export type FirebaseControllerType = ReturnType<typeof FirebaseController>
-
 type RecordPayload = {
   userId: string
   date: Date
@@ -19,8 +17,8 @@ type RecordPayload = {
   liabilities: Data[]
 }
 
-export default function FirebaseController() {
-  const firebaseConfig = {
+export default class FirebaseController {
+  static #firebaseConfig = {
     apiKey: 'AIzaSyCS6CsSSJOjkhWDaByKtx4nf0qxKXFawWs',
     authDomain: 'net-worth-tracker-bab98.firebaseapp.com',
     projectId: 'net-worth-tracker-bab98',
@@ -29,12 +27,12 @@ export default function FirebaseController() {
     appId: '1:732921134415:web:d13a317475e6b5f560993a',
   }
 
-  const app = initializeApp(firebaseConfig)
-  const db = getFirestore(app)
-  const usersRef = collection(db, 'users')
+  static #app = initializeApp(this.#firebaseConfig)
+  static #db = getFirestore(this.#app)
+  static #usersRef = collection(this.#db, 'users')
 
-  const getUserId = async (username: string) => {
-    const userQuery = query(usersRef, where('username', '==', username))
+  static getUserId = async (username: string) => {
+    const userQuery = query(this.#usersRef, where('username', '==', username))
     const userSnapshot = await getDocs(userQuery)
     try {
       return userSnapshot.docs[0].id
@@ -43,8 +41,8 @@ export default function FirebaseController() {
     }
   }
 
-  const getAllUsernames = async () => {
-    const usersQuery = query(usersRef)
+  static getAllUsernames = async () => {
+    const usersQuery = query(this.#usersRef)
     const usersSnapshot = await getDocs(usersQuery)
     return usersSnapshot.docs.map((user) => {
       const data = user.data()
@@ -52,39 +50,30 @@ export default function FirebaseController() {
     })
   }
 
-  const usernameIsValid = async (username: string) => {
-    const userQuery = query(usersRef, where('username', '==', username))
+  static usernameIsValid = async (username: string) => {
+    const userQuery = query(this.#usersRef, where('username', '==', username))
     const userSnapshot = await getDocs(userQuery)
     return !userSnapshot.empty
   }
 
-  const addUser = async (username: string) => {
-    const docData = await addDoc(usersRef, { username })
+  static addUser = async (username: string) => {
+    const docData = await addDoc(this.#usersRef, { username })
     return docData.id
   }
 
-  const getUserRecordsCollectionRef = (userId: string) => {
-    return collection(db, `users/${userId}/records`)
+  static getUserRecordsCollectionRef = (userId: string) => {
+    return collection(this.#db, `users/${userId}/records`)
   }
 
-  const addRecordToUser = async ({
+  static addRecordToUser = async ({
     userId,
     date,
     assets,
     liabilities,
   }: RecordPayload) => {
-    const recordsCollectionRef = getUserRecordsCollectionRef(userId)
+    const recordsCollectionRef = this.getUserRecordsCollectionRef(userId)
     const displayDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
     const netWorth = calculateNetWorth(assets, liabilities)
     addDoc(recordsCollectionRef, { date, netWorth, displayDate, assets, liabilities })
-  }
-
-  return {
-    getUserId,
-    getAllUsernames,
-    usernameIsValid,
-    addUser,
-    getUserRecordsCollectionRef,
-    addRecordToUser,
   }
 }

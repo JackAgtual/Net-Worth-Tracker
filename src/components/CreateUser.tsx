@@ -6,8 +6,6 @@ import { formStyles } from '../styles/loginStyles'
 import BackToNewOrExisting from './BackToNewOrExisting'
 import LoginPaper from './LoginPaper'
 
-const firebaseController = FirebaseController()
-
 type CreateUserProps = {
   setUsername: React.Dispatch<React.SetStateAction<string>>
   setUserId: React.Dispatch<React.SetStateAction<string>>
@@ -21,7 +19,7 @@ function CreateUser({ setUsername, setUserId, setUserIsValid }: CreateUserProps)
 
   const createNewuser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const existingUserId = await firebaseController.getUserId(newUsername)
+    const existingUserId = await FirebaseController.getUserId(newUsername)
 
     if (existingUserId) {
       setUserAlreadyExists(true)
@@ -29,7 +27,7 @@ function CreateUser({ setUsername, setUserId, setUserIsValid }: CreateUserProps)
     }
 
     setUserAlreadyExists(false)
-    const newUserId = await firebaseController.addUser(newUsername)
+    const newUserId = await FirebaseController.addUser(newUsername)
     setUsername(newUsername)
     setUserId(newUserId)
     setUserIsValid(true)
