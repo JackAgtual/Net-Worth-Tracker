@@ -26,10 +26,7 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
     getAllUsers()
   }, [])
 
-  const handleUsernameChange = (
-    e: React.SyntheticEvent<Element, Event>,
-    value: string | null,
-  ) => {
+  const handleUsernameChange = (value: string | null) => {
     if (!value || !existingUsers.includes(value)) {
       setInputtedUserIsValid(false)
       return
@@ -58,7 +55,7 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
               Enter your username to track your net worth
             </Typography>
             <Autocomplete
-              onChange={handleUsernameChange}
+              onChange={(_, value) => handleUsernameChange(value)}
               disablePortal
               id="combo-box-demo"
               options={existingUsers}
