@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter basename={import.meta.env.DEV ? '' : 'Net-Worth-Tracker'}>
+    <BrowserRouter basename={import.meta.env.DEV ? '' : '/Net-Worth-Tracker'}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <App />
