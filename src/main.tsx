@@ -7,11 +7,9 @@ import { ThemeProvider } from '@mui/material/styles'
 import { theme } from './styles/theme.ts'
 import { BrowserRouter } from 'react-router-dom'
 
-const dev = import.meta.env.DEV || false
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter basename={dev ? '' : '/Net-Worth-Tracker'}>
+    <BrowserRouter basename="/Net-Worth-Tracker">
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <App />
