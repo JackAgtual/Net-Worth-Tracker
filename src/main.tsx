@@ -8,8 +8,7 @@ import { theme } from './styles/theme.ts'
 import { BrowserRouter } from 'react-router-dom'
 
 const dev = import.meta.env.DEV || false
-console.log(import.meta.env.VITE_TEST_ENV_VARIABLE)
-console.log(import.meta.env)
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter basename={dev ? '' : '/Net-Worth-Tracker'}>
