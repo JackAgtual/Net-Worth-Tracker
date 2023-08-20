@@ -2,6 +2,7 @@ import { Button, TextField, Stack, Typography, Box, Autocomplete } from '@mui/ma
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FirebaseController from '../services/firebase/firebase'
+import LocalStorageController from '../utils/localStorageUtils'
 import { formStyles } from '../styles/loginStyles'
 import BackToNewOrExisting from './BackToNewOrExisting'
 import LoginPaper from './LoginPaper'
@@ -45,6 +46,7 @@ function Login({ setUsername, setUserIsValid }: LoginProps) {
 
     setUserIsValid(true)
     setUsername(newUsername)
+    LocalStorageController.saveUser(newUsername)
     navigate('/home')
   }
 

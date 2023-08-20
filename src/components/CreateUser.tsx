@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Typography, TextField, Button, Stack, Box } from '@mui/material'
 import FirebaseController from '../services/firebase/firebase'
+import LocalStorageController from '../utils/localStorageUtils'
 import { useNavigate } from 'react-router-dom'
 import { formStyles } from '../styles/loginStyles'
 import BackToNewOrExisting from './BackToNewOrExisting'
@@ -31,6 +32,7 @@ function CreateUser({ setUsername, setUserId, setUserIsValid }: CreateUserProps)
     setUsername(newUsername)
     setUserId(newUserId)
     setUserIsValid(true)
+    LocalStorageController.saveUser(newUsername)
     navigate('/home')
   }
 

@@ -29,8 +29,10 @@ function App() {
           element={
             <Home
               username={username}
+              setUsername={setUsername}
               userId={userId}
               setUserId={setUserId}
+              setUserIsValid={setUserIsValid}
               records={records}
               setRecords={setRecrods}
               resetUserData={resetUserData}

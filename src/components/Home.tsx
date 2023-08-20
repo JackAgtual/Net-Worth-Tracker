@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import FirebaseController from '../services/firebase/firebase'
+import LocalStorageController from '../utils/localStorageUtils'
 import { Unsubscribe, onSnapshot } from 'firebase/firestore'
 import InputData from './InputData'
 import { Record, RecordData } from '../types/data'
@@ -9,8 +10,10 @@ import Plot from './Plot'
 
 type HomeProps = {
   username: string
+  setUsername: React.Dispatch<React.SetStateAction<string>>
   userId: string
   setUserId: React.Dispatch<React.SetStateAction<string>>
+  setUserIsValid: React.Dispatch<React.SetStateAction<boolean>>
   records: Record[]
   setRecords: React.Dispatch<React.SetStateAction<Record[]>>
   resetUserData: () => void
@@ -18,14 +21,18 @@ type HomeProps = {
 
 function Home({
   username,
+  setUsername,
   userId,
   setUserId,
+  setUserIsValid,
   records,
   setRecords,
   resetUserData,
 }: HomeProps) {
   useEffect(() => {
+    console.log('useEffect usrename')
     let unsubscribeRecords: Unsubscribe
+
     const getRecords = async () => {
       const tmpUserId = await FirebaseController.getUserId(username)
 
@@ -48,8 +55,16 @@ function Home({
       })
 
       setUserId(tmpUserId)
+      setUserIsValid(true)
     }
-    getRecords()
+
+    if (username) {
+      getRecords()
+    } else {
+      const savedUser = LocalStorageController.loadUser()
+      if (!savedUser) return
+      setUsername(savedUser.username)
+    }
 
     return () => {
       if (unsubscribeRecords) {

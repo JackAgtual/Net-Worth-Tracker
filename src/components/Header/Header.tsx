@@ -4,6 +4,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
+import LocalStorageController from '../../utils/localStorageUtils'
 
 type HeaderProps = {
   userIsSignedIn: boolean
@@ -14,6 +15,7 @@ export default function Header({ userIsSignedIn, resetUserData }: HeaderProps) {
   const navigate = useNavigate()
 
   const handleSignOut = () => {
+    LocalStorageController.clearUser()
     navigate('/')
     resetUserData()
   }
