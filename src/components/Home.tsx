@@ -30,7 +30,6 @@ function Home({
   resetUserData,
 }: HomeProps) {
   useEffect(() => {
-    console.log('useEffect usrename')
     let unsubscribeRecords: Unsubscribe
 
     const getRecords = async () => {
