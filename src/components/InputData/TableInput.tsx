@@ -31,7 +31,7 @@ function TableInput({ tableName, tableRows, setTableRows }: TableInputProps) {
 
   const handleNameChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    rowIdx: number
+    rowIdx: number,
   ) => {
     setTableRows((prevRows) => {
       const newRows = [...prevRows]
@@ -42,7 +42,7 @@ function TableInput({ tableName, tableRows, setTableRows }: TableInputProps) {
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    rowIdx: number
+    rowIdx: number,
   ) => {
     setTableRows((prevRows) => {
       const newRows = [...prevRows]

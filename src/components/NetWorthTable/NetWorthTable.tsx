@@ -27,11 +27,13 @@ function NetWorthTable({ records, setRecords }: NetWorthTableProps) {
     const ascendingMult = sortAscending ? 1 : -1
     if (sortByDateOrNetWorth === 'date') {
       setRecords((prevRecords) =>
-        [...prevRecords].sort((a, b) => ascendingMult * (a.date.seconds - b.date.seconds))
+        [...prevRecords].sort(
+          (a, b) => ascendingMult * (a.date.seconds - b.date.seconds),
+        ),
       )
     } else {
       setRecords((prevRecords) =>
-        [...prevRecords].sort((a, b) => ascendingMult * (a.netWorth - b.netWorth))
+        [...prevRecords].sort((a, b) => ascendingMult * (a.netWorth - b.netWorth)),
       )
     }
   }, [sortByDateOrNetWorth, sortAscending])

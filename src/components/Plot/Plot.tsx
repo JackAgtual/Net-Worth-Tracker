@@ -25,7 +25,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  TimeScale
+  TimeScale,
 )
 
 type PlotProps = {
