@@ -13,10 +13,7 @@ type NetWorthBreakdownTableProps = {
   assetsOrLiabilities: 'assets' | 'liabilities'
 }
 
-function NetWorthBreakdownTable({
-  record,
-  assetsOrLiabilities,
-}: NetWorthBreakdownTableProps) {
+function ItemTable({ record, assetsOrLiabilities }: NetWorthBreakdownTableProps) {
   const items = record[assetsOrLiabilities]
   const tableTitle =
     assetsOrLiabilities.charAt(0).toUpperCase() + assetsOrLiabilities.slice(1)
@@ -51,4 +48,4 @@ function NetWorthBreakdownTable({
   )
 }
 
-export default NetWorthBreakdownTable
+export default ItemTable
