@@ -1,5 +1,7 @@
 import {
   Button,
+  Input,
+  InputAdornment,
   Table,
   TableBody,
   TableCell,
@@ -66,7 +68,7 @@ function TableInput({ tableName, tableRows, setTableRows }: TableInputProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableRows.map((row, idx) => {
+            {tableRows.map((_, idx) => {
               return (
                 <TableRow key={idx}>
                   <TableCell>
@@ -74,16 +76,16 @@ function TableInput({ tableName, tableRows, setTableRows }: TableInputProps) {
                       variant="standard"
                       size="small"
                       type="text"
-                      value={row.name}
+                      required={true}
                       onChange={(e) => handleNameChange(e, idx)}
                     />
                   </TableCell>
                   <TableCell>
-                    <TextField
-                      variant="standard"
+                    <Input
                       size="small"
                       type="number"
-                      value={row.amount}
+                      startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                      required={true}
                       onChange={(e) => handleAmountChange(e, idx)}
                     />
                   </TableCell>
