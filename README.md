@@ -12,9 +12,9 @@ After logging in or creating a new account, the user's net worth can be viewd in
 
 ## Technical Details
 
-The frontend of this application was made using TypeScript, React, Material UI, and Chart.js. Material UI was used to get a good looking, easy to use, and cohesive user interface. Chart.js was used to display a plot of the user's net worth vs. time chart.
+Utilized a modern tech stack featuring React, TypeScript, and Material UI for the frontend. The choice of Material UI ensured a sleek, fully responsive user interface, enhancing the overall user experience. Chart.js was used to display a plot of the user's net worth vs. time chart.
 
-Firebase was used as a backend service for this application to allow users' data to persist across different sessions and machines.
+Firebase was integrated as the backend service to support user data persistence and real-time updates.
 
 ## Installation
 
