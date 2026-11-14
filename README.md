@@ -1,5 +1,9 @@
 # Net Worth Tracker
 
+__This version is deprecated. Check out the new repo at https://github.com/JackAgtual/net-worth__
+
+---
+
 Try it out: https://jackagtual.github.io/Net-Worth-Tracker/
 
 This app allows different users to track their net worth over time. The user can enter details about all their assets and liabilities over time to track how their net worth changes over time.
